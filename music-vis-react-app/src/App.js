@@ -6,33 +6,49 @@ import { motion } from "framer-motion"
 // https://codepen.io/jakebown/pen/weoVxg
 // https://codepen.io/CarlosEME/pen/XWWpVMp
 
-function PulseCircle(props) {
+class PulseCircle extends React.Component  {
 
-  return (
-    <g>
-      <motion.circle className="pulse-anim" 
-        cx={props.x} cy={props.y} r="10"
+  constructor(props){
+    super(props)
+    this.onAnimationComplete = props.onAnimationComplete;
+    this.index = props.index;
+  }
 
-         
-        animate={{ 
-          scale: [1, 1.4, 1, 1],
-        }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-          times: [0, 0.2, 0.8, 1],
-        }}
-        onAnimationComplete={props.onAnimationComplete}
-      />
-    </g>
-  );
+  onComplete = () => {
+    this.onAnimationComplete(this.index);
+  }
+
+  render() {
+    return (
+      <g>
+        <motion.circle className="pulse-anim" 
+          cx={this.props.x} cy={this.props.y} r="10"
+  
+          animate={{ 
+            scale: [1, 1.4, 1, 1],
+          }}
+          transition={{
+            duration: 1,
+            ease: "easeOut",
+            times: [0, 0.2, 0.8, 1],
+          }}
+        />
+      </g>
+    );
+  }
+
 }
 
 function PulseCircles(props) {
   if (props.pulseCircles.length > 0){
-    const pulseCircles = props.pulseCircles.map((pulseCircle, i) => {
+    const pulseCircles = props.pulseCircles.map((pulseCircle, index) => {
       return (
-        <PulseCircle key={i} x={pulseCircle.x} y={pulseCircle.y} onAnimationComplete={props.onAnimationComplete} />
+        <PulseCircle 
+          key={index} 
+          x={pulseCircle.x} 
+          y={pulseCircle.y} 
+          index={index}
+        />
       )
     })
     return pulseCircles;
@@ -61,7 +77,6 @@ class ArtBoard extends React.Component {
 
     // The cursor point, translated into svg coordinates
     var cursorpt =  pt.matrixTransform(svg.getScreenCTM().inverse());
-    console.log("(" + cursorpt.x + ", " + cursorpt.y + ")");
     return({
       x: cursorpt.x, 
       y: cursorpt.y
@@ -71,18 +86,28 @@ class ArtBoard extends React.Component {
   onMouseDown(e) {
     const newPulseCircle = [{x: this.alert_coords(e).x, y: this.alert_coords(e).y }]
     this.setState({ pulseCircles: this.state.pulseCircles.concat(newPulseCircle) });
-    console.log(this.state);
+    console.log(this.state.pulseCircles);
+    if (this.state.pulseCircles.length > 8){
+      this.removeExcessCircles();
+    }
   }
 
-  onAnimationComplete(){
-    console.log('done');
+  removeExcessCircles = () => {
+    console.log(this.state);
+    const pulseCircles = this.state.pulseCircles;
+
+    this.setState({
+      pulseCircles: pulseCircles.filter((pulseCircle, i) => {
+        return i !== 0
+      })
+    })
   }
 
   render () {
     return (
       <div className="artboard-container" onMouseDown={this.onMouseDown}> 
         <svg  viewBox="0 0 100 100" ref={this.artboardRef}>
-          <PulseCircles pulseCircles={this.state.pulseCircles} onAnimationComplete={this.onAnimationComplete}/>
+          <PulseCircles pulseCircles={this.state.pulseCircles}/>
         </svg>
       </div>
     )
