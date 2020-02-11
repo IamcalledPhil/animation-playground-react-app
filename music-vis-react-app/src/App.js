@@ -1,37 +1,49 @@
 import React from 'react';
-import PulseCircle from './components/PulseCircle';
 import './App.css';
 import { motion } from "framer-motion"
+
+import PulseCircles from './components/PulseCircles';
+
 
 class RandomAnt extends React.Component {
   constructor(props){
     super(props)
-    this.colours = [
-      '#3D6CFF',
-      '#3890E8',
-      '#4AD5FF',
-      '#38E8E2',
-      '#3DFFC2'
-    ];
+    this.path1 = this.generatePath('HVH');
+    this.path2 = this.generatePath('VHV');
   }
 
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  getRandomInt() {
+    return Math.floor(Math.random() * 100);
   }
 
+  generatePath (directions) {
+    return `M${this.props.x} ${this.props.y} ${directions[0]}${this.getRandomInt()} ${directions[1]}${this.getRandomInt()} ${directions[2]}${this.getRandomInt()}`;
+  }
+  
   render () {
     return (
       <g>
         <motion.path className="random-ant"
-        d={`M${this.props.x} ${this.props.y} L${this.getRandomInt(0,100)} L${this.getRandomInt(0,100)} L${this.getRandomInt(0,100)}`}
+        stroke={this.props.colour}
+        d={this.path1}
         initial={{pathLength:0, opacity: 1}}
         animate={{pathLength:1, opacity: 0.1}}
         transition={{
-          duration: 10,
+          duration: 1,
           ease: "easeOut",
         }}
         />
-      </g>
+        <motion.path className="random-ant"
+        stroke={this.props.colour}
+        d={this.path2}
+        initial={{pathLength:0, opacity: 1}}
+        animate={{pathLength:1, opacity: 0.1}}
+        transition={{
+          duration: 1,
+          ease: "easeOut",
+        }}
+      />
+    </g>
     )
   }
 }
@@ -64,41 +76,6 @@ class RandomAnts extends React.Component {
         )
       })
       return randomAnts;
-    } else {
-      return null;
-    }
-  }
-}
-
-class PulseCircles extends React.Component {
-
-  constructor(props){
-    super(props)
-    this.colours = [
-      '#3D6CFF',
-      '#3890E8',
-      '#4AD5FF',
-      '#38E8E2',
-      '#3DFFC2'
-    ]
-  }
-
-  render(){
-    let colourIndex = 0;
-    if (this.props.pulseCircles.length > 0){
-      const pulseCircles = this.props.pulseCircles.map((pulseCircle, index) => {
-        colourIndex = colourIndex >= this.colours.length-1 ? 0 : colourIndex +1;
-        return (
-          <PulseCircle 
-            key={index} 
-            x={pulseCircle.x} 
-            y={pulseCircle.y} 
-            index={index}
-            colour={this.colours[colourIndex]}
-          />
-        )
-      })
-      return pulseCircles;
     } else {
       return null;
     }
@@ -172,7 +149,7 @@ class ArtBoard extends React.Component {
           />
         </svg>
         <button onClick={this.clear}> Clear</button>
-        <button onClick={() => {this.selectTool("pulseCircle")}}>Circles</button>
+        <button onClick={() => {this.selectTool("pulseCircles")}}>Circles</button>
         <button onClick={() => {this.selectTool("randomAnts")}}>Ants</button>
       </div>
     )

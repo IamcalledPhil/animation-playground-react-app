@@ -23,6 +23,6 @@ code {
 }
 
 .random-ant {
-  stroke: #3D6CFF;
-  stroke-width: 3px;
+  stroke-width: 1px;
+  fill: none;
 }
