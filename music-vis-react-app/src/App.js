@@ -8,8 +8,8 @@ import PulseCircles from './components/PulseCircles';
 class RandomAnt extends React.Component {
   constructor(props){
     super(props)
-    this.path1 = this.generatePath('HVH');
-    this.path2 = this.generatePath('VHV');
+    this.path1 = this.generatePath('HVHVH');
+    this.path2 = this.generatePath('VHVHV');
   }
 
   getRandomInt() {
@@ -17,7 +17,11 @@ class RandomAnt extends React.Component {
   }
 
   generatePath (directions) {
-    return `M${this.props.x} ${this.props.y} ${directions[0]}${this.getRandomInt()} ${directions[1]}${this.getRandomInt()} ${directions[2]}${this.getRandomInt()}`;
+    let path = `M${this.props.x} ${this.props.y} `;
+    for (const direction of directions){
+      path = path.concat(`${direction}${this.getRandomInt()} `);
+    }
+    return path;
   }
   
   render () {
@@ -29,7 +33,7 @@ class RandomAnt extends React.Component {
         initial={{pathLength:0, opacity: 1}}
         animate={{pathLength:1, opacity: 0.1}}
         transition={{
-          duration: 1,
+          duration: 2,
           ease: "easeOut",
         }}
         />
@@ -39,7 +43,7 @@ class RandomAnt extends React.Component {
         initial={{pathLength:0, opacity: 1}}
         animate={{pathLength:1, opacity: 0.1}}
         transition={{
-          duration: 1,
+          duration: 2,
           ease: "easeOut",
         }}
       />
