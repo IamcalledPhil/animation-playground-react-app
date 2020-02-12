@@ -10,6 +10,7 @@ class RandomAnt extends React.Component {
     super(props)
     this.path1 = this.generatePath('HVHVH');
     this.path2 = this.generatePath('VHVHV');
+    this.blurId = "blur"+this.props.index;
   }
 
   getRandomInt() {
@@ -23,23 +24,13 @@ class RandomAnt extends React.Component {
     }
     return path;
   }
-  
-  render () {
+
+  renderPath (path, colour, blurId) {
     return (
-      <g>
-        <motion.path className="random-ant"
-        stroke={this.props.colour}
-        d={this.path1}
-        initial={{pathLength:0, opacity: 1}}
-        animate={{pathLength:1, opacity: 0.1}}
-        transition={{
-          duration: 2,
-          ease: "easeOut",
-        }}
-        />
-        <motion.path className="random-ant"
-        stroke={this.props.colour}
-        d={this.path2}
+      <motion.path className="random-ant"
+        stroke={colour}
+        d={path}
+        filter={"url(#"+blurId+")"}
         initial={{pathLength:0, opacity: 1}}
         animate={{pathLength:1, opacity: 0.1}}
         transition={{
@@ -47,6 +38,22 @@ class RandomAnt extends React.Component {
           ease: "easeOut",
         }}
       />
+    )
+  }
+  
+  render () {
+    return (
+      <g>
+        <filter id={this.blurId}>
+          <motion.feGaussianBlur in="SourceGraphic" 
+          initial={{stdDeviation:0.5}}
+          animate={{stdDeviation:0}}
+          transition={{
+            duration: 0.5
+          }} />
+        </filter>
+        {this.renderPath(this.path1, this.props.colour, this.blurId)}
+        {this.renderPath(this.path2, this.props.colour, this.blurId)}
     </g>
     )
   }
@@ -73,6 +80,7 @@ class RandomAnts extends React.Component {
         return (
           <RandomAnt 
             key={index} 
+            index={index}
             x={randomAnt.x} 
             y={randomAnt.y} 
             colour={this.colours[colourIndex]}
