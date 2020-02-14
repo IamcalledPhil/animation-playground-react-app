@@ -25,4 +25,11 @@ code {
 .random-ant {
   stroke-width: 1px;
   fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.floatingBubble {
+  border: white;
+  position: absolute;
 }

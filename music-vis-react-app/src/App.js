@@ -3,95 +3,37 @@ import './App.css';
 import { motion } from "framer-motion"
 
 import PulseCircles from './components/PulseCircles';
+import RandomAnts from './components/RandomAnts';
 
 
-class RandomAnt extends React.Component {
-  constructor(props){
-    super(props)
-    this.path1 = this.generatePath('HVHVH');
-    this.path2 = this.generatePath('VHVHV');
-    this.blurId = "blur"+this.props.index;
-  }
+class FloatingBubble extends React.Component {
 
   getRandomInt() {
     return Math.floor(Math.random() * 100);
   }
 
-  generatePath (directions) {
-    let path = `M${this.props.x} ${this.props.y} `;
-    for (const direction of directions){
-      path = path.concat(`${direction}${this.getRandomInt()} `);
-    }
-    return path;
-  }
-
-  renderPath (path, colour, blurId) {
+  //make draggable
+  render() {
+    
     return (
-      <motion.path className="random-ant"
-        stroke={colour}
-        d={path}
-        filter={"url(#"+blurId+")"}
-        initial={{pathLength:0, opacity: 1}}
-        animate={{pathLength:1, opacity: 0.1}}
-        transition={{
-          duration: 2,
-          ease: "easeOut",
-        }}
-      />
-    )
-  }
-  
-  render () {
-    return (
-      <g>
-        <filter id={this.blurId}>
-          <motion.feGaussianBlur in="SourceGraphic" 
-          initial={{stdDeviation:0.5}}
-          animate={{stdDeviation:0}}
+        <motion.div className="floating-bubble"
+          border='#ffffff'
+          x={this.props.x}
+          y={this.props.y}
+          border-radius='5'
+          width='20'
+          height='20'
+          animate={{rotate: [ 270, 0]}}
+          drag
           transition={{
-            duration: 0.5
-          }} />
-        </filter>
-        {this.renderPath(this.path1, this.props.colour, this.blurId)}
-        {this.renderPath(this.path2, this.props.colour, this.blurId)}
-    </g>
+            duration: 2,
+            ease: "linear",
+            loop: "infinity"
+          }}
+        />
     )
   }
-}
 
-class RandomAnts extends React.Component {
-
-  constructor(props){
-    super(props)
-    this.colours = [
-      '#3D6CFF',
-      '#3890E8',
-      '#4AD5FF',
-      '#38E8E2',
-      '#3DFFC2'
-    ]
-  }
-
-  render(){
-    let colourIndex = 0;
-    if (this.props.randomAnts.length > 0){
-      const randomAnts = this.props.randomAnts.map((randomAnt, index) => {
-        colourIndex = colourIndex >= this.colours.length-1 ? 0 : colourIndex +1;
-        return (
-          <RandomAnt 
-            key={index} 
-            index={index}
-            x={randomAnt.x} 
-            y={randomAnt.y} 
-            colour={this.colours[colourIndex]}
-          />
-        )
-      })
-      return randomAnts;
-    } else {
-      return null;
-    }
-  }
 }
 
 class ArtBoard extends React.Component {
@@ -101,6 +43,7 @@ class ArtBoard extends React.Component {
     this.initialState = {
       pulseCircles: [],
       randomAnts: [],
+      floatingBubble: false,
       currentTool: 'pulseCircles'
     }
     this.state = this.initialState;
@@ -135,6 +78,11 @@ class ArtBoard extends React.Component {
         this.setState({ 
           randomAnts: this.state.randomAnts.concat(newElement),
          });
+      } else if (this.state.currentTool === 'floatingBubble')
+      {
+        this.setState({ 
+          floatingBubble: newElement,
+         });
       }
       
   }
@@ -159,10 +107,14 @@ class ArtBoard extends React.Component {
           <RandomAnts 
           randomAnts={this.state.randomAnts}
           />
+          <FloatingBubble 
+          x={this.state.floatingBubble.x} y={this.state.floatingBubble.y}
+          />
         </svg>
         <button onClick={this.clear}> Clear</button>
         <button onClick={() => {this.selectTool("pulseCircles")}}>Circles</button>
         <button onClick={() => {this.selectTool("randomAnts")}}>Ants</button>
+        <button onClick={() => {this.selectTool("floatingBubble")}}>Floating bubble</button>
       </div>
     )
   }
