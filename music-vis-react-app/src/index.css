@@ -29,7 +29,5 @@ code {
   stroke-linejoin: round;
 }
 
-.floatingBubble {
-  border: white;
-  position: absolute;
+.butterfly-wing {
 }
