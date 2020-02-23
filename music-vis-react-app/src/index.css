@@ -24,16 +24,41 @@ code {
 
 .artboard-container button {
   color: white;
-  border: 0.1em solid #FFFFFF;
+  border: 0.1em solid rgb(66, 63, 63);
   background: #000000;
   padding: 0.35em 1.2em;
+  margin: 0.5em;
   text-align: center;
   font-size: large;
   transition: all 0.2s;
+  border-radius: 0.5em;
+  position: relative;
+  width: 100px;
+  height: 50px;
 }
 
 .artboard-container button :hover{
   background-color: cornflowerblue;
+}
+
+.artboard-container .clear-button {
+  border: 0.1em solid #FF5B17;
+}
+
+.button-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -15px 0 0 -15px;
+}
+
+.ants-icon {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .random-ant {

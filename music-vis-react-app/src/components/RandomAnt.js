@@ -35,7 +35,7 @@ class RandomAnt extends React.Component {
           initial={{pathLength:0, opacity: 1}}
           animate={{pathLength:1, opacity: 0.1}}
           transition={{
-            duration: 2,
+            duration: 3,
             ease: "easeOut",
           }}
         />

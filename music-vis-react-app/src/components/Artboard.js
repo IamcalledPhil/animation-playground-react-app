@@ -3,6 +3,7 @@ import React from 'react';
 import PulseCircles from './PulseCircles';
 import RandomAnts from './RandomAnts';
 import Butterflies from './Butterflies';
+import {CircleIcon, AntsIcon, ButterfliesIcon, ClearIcon} from './ButtonIcons';
 
 class ArtBoard extends React.Component {
   
@@ -82,10 +83,18 @@ class ArtBoard extends React.Component {
                 butterflies={this.state.butterflies}
                 />
           </svg>
-          <button onClick={this.clear}> Clear</button>
-          <button onClick={() => {this.selectTool("pulseCircles")}}>Circles</button>
-          <button onClick={() => {this.selectTool("randomAnts")}}>Ants</button>
-          <button onClick={() => {this.selectTool("butterflies")}}>Butterflies</button>
+          <button onClick={() => {this.selectTool("pulseCircles")}}>
+            <CircleIcon/>
+          </button>
+          <button onClick={() => {this.selectTool("randomAnts")}}>
+              <AntsIcon/>
+          </button>
+          <button onClick={() => {this.selectTool("butterflies")}}>
+              <ButterfliesIcon/>
+          </button>
+          <button onClick={this.clear} className="clear-button">
+              <ClearIcon/>
+            </button>
         </div>
       )
     }
