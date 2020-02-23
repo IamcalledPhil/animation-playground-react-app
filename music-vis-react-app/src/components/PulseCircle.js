@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 
 class PulseCircle extends React.Component  {
@@ -14,7 +14,7 @@ class PulseCircle extends React.Component  {
         <g>
             <motion.circle className="pulse-anim" 
               stroke={this.props.colour}
-              cx={this.props.x} cy={this.props.y} r="10"
+              cx={this.props.x} cy={this.props.y} r="15"
               initial= {{scale: 0.1,opacity: 1}}
               animate={{ 
                 scale: [0.1,3],

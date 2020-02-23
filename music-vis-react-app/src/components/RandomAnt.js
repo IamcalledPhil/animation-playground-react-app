@@ -8,14 +8,21 @@ class RandomAnt extends React.Component {
       this.path2 = this.generatePath('VHVHV');
     }
   
-    getRandomInt() {
+    getRandomHorizontalInt() {
+      return Math.floor(Math.random() * 200);
+    }
+
+    getRandomVerticalInt() {
       return Math.floor(Math.random() * 100);
     }
   
     generatePath (directions) {
       let path = `M${this.props.x} ${this.props.y} `;
       for (const direction of directions){
-        path = path.concat(`${direction}${this.getRandomInt()} `);
+        path = path.concat(`${direction}
+          ${direction === 'H' ? this.getRandomHorizontalInt() 
+            : this.getRandomVerticalInt()} `
+          );
       }
       return path;
     }
