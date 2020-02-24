@@ -83,18 +83,21 @@ class ArtBoard extends React.Component {
                 butterflies={this.state.butterflies}
                 />
           </svg>
-          <button onClick={() => {this.selectTool("pulseCircles")}}>
-            <CircleIcon/>
-          </button>
-          <button onClick={() => {this.selectTool("randomAnts")}}>
-              <AntsIcon/>
-          </button>
-          <button onClick={() => {this.selectTool("butterflies")}}>
-              <ButterfliesIcon/>
-          </button>
-          <button onClick={this.clear} className="clear-button">
-              <ClearIcon/>
+          <div className="toolbar">
+            <button onClick={() => {this.selectTool("pulseCircles")}}>
+              <CircleIcon/>
             </button>
+            <button onClick={() => {this.selectTool("randomAnts")}}>
+                <AntsIcon/>
+            </button>
+            <button onClick={() => {this.selectTool("butterflies")}}>
+                <ButterfliesIcon/>
+            </button>
+            <button onClick={this.clear} className="clear-button">
+                <ClearIcon/>
+            </button>
+          </div>
+         
         </div>
       )
     }
