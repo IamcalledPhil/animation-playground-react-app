@@ -22,7 +22,6 @@ class Butterfly extends React.Component {
             }}
           />
         </g>
-         
       )
     }
 

@@ -93,7 +93,7 @@ class ArtBoard extends React.Component {
             <button onClick={() => {this.selectTool("butterflies")}}>
                 <ButterfliesIcon/>
             </button>
-            <button onClick={this.clear} className="clear-button">
+            <button onClick={this.clear}>
                 <ClearIcon/>
             </button>
           </div>

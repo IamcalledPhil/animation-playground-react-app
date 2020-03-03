@@ -1,3 +1,5 @@
+@import "_mixins";
+
 body {
   background-color: black;
   margin: 0;
@@ -38,6 +40,7 @@ code {
 
 .artboard-container button:hover{
   background-color: rgb(54, 54, 54);
+  cursor: pointer;
 }
 
 
@@ -51,10 +54,16 @@ code {
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 50%;
-  left: 50%;
   margin: -15px 0 0 -15px;
 }
+
+.clear-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  margin: -15px 0 0 -10px;
+}
+
 
 .ants-icon {
   fill: none;
@@ -72,6 +81,6 @@ code {
 
 .artboard {
   width: 100vw;
-  height: auto;
+  height: 100vh;
   display: inline-block;
 }

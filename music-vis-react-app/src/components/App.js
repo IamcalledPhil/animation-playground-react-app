@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 
-import ArtBoard from './components/Artboard';
+import ArtBoard from './Artboard';
 
 class App extends React.Component {
 

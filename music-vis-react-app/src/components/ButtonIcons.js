@@ -30,7 +30,7 @@ function ButterfliesIcon (){
 
 function ClearIcon (){
     return (
-        <FontAwesomeIcon icon={faTrash} className="button-icon" color="#FF5B17"/>
+        <FontAwesomeIcon icon={faTrash} className="clear-icon" color="#FF5B17" />
     )
 }
 
