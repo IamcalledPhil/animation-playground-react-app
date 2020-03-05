@@ -19,3 +19,22 @@
       @warn "Invalid value, must be supersml, sml, med or lge";
     }
   }
+
+  @mixin button-themed {
+    background: #000000;
+    padding: 0.35em 1.2em;
+    text-align: center;
+    font-size: large;
+    transition: all 0.2s;
+    position: relative;
+    width: 100px;
+    height: 50px;
+    border: none;
+    &:hover {
+      background-color: rgb(121, 120, 120);
+      cursor: pointer;
+    }
+    &:active {
+      background-color: rgb(75, 74, 74);
+    }
+  }
