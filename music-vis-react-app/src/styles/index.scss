@@ -10,6 +10,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  color: #4AD5FF;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -17,7 +20,6 @@ code {
 
 .app button {
   @include button-themed;
-  color: white;
 }
 
 .pulse-anim {
@@ -79,5 +81,5 @@ code {
 
 .about-section {
   color: white;
-  padding: 10% 20%;
+  padding: 10% 25%;
 }
